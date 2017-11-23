@@ -7,12 +7,39 @@ class Api::V1::UsersController < ApplicationController
 
   def create
     user = User.create(user_params)
-    render json: user
+    render json: {
+      id: user.id,
+      username: user.username,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      company: user.company,
+      admin: user.admin,
+      email: user.email
+    }
   end
 
   def show
     user = User.find_by(id: params[:id])
-    render json: user
+    render json: {
+      id: user.id,
+      username: user.username,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      company: user.company,
+      admin: user.admin,
+      email: user.email
+    }
+  end
+
+  def get_clients
+    users = User.all
+    clients = users.map do |user|
+      if !user.admin
+        user
+      end
+    end
+    clientsOnly = clients.compact
+    render json: clientsOnly
   end
 
   private
