@@ -35,6 +35,19 @@ class Api::V1::EventsController < ApplicationController
     render json: activeClientsEventsCompacted
   end
 
+
+  def get_categories
+    events = Event.all
+    categories = events.map do |event|
+      if event.user_id == params[:user_id]
+        event.category
+      end
+    end
+    categoriesCompacted = categories.compact
+    uniqueCategories = categoriesCompacted.uniq
+    render json: uniqueCategories
+  end
+
   private
 
   def event_params

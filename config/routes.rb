@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       post '/sessions', to: 'sessions#create'
       get '/sessions/current_user', to: 'sessions#show'
       post '/users/get_clients', to: 'users#get_clients'
+      post '/events/get_categories', to: 'events#get_categories'
       post '/events/get_active_client_events', to: 'events#get_active_client_events'
     end
   end
